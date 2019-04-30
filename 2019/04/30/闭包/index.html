@@ -1,0 +1,60 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta name="generator" content="Hexo 3.8.0"><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><meta name="viewport" content="width=device-width, initial-scale=1"><title>闭包</title><link rel="shortcut icon" href="/images/avatar.png"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css"><script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script></head><body><nav class="main-nav"><a href="/">Home</a><a href="/archives">Archives</a></nav><div class="profile"><section id="wrapper"><header id="header"><a href="/about"><img class="2x" id="avatar" src="/images/avatar.png"></a><h1>Gulog</h1><h2></h2></header></section></div><section class="post" id="wrapper"><article><header><h1>闭包</h1><h2 class="headline">Apr 30, 2019 5:06·475 words
+·1 minutes read<span class="tags"></span></h2></header><section id="post-body"><ul>
+<li>闭包 和 匿名函数？<ul>
+<li>闭包是指有权访问另一个函数作用域中的变量的函数</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>要彻底理解闭包，需要知道有关如何创建作用域链以及作用域链有什么作用的细节</p>
+</li>
+<li><p>作用域链</p>
+<ul>
+<li>当某个函数被调用时，会创建一个执行环境（execution context）及相应的作用域链。然后使用 arguments 和其他命名参数的值来初始化函数的活动对象（activation object）。但是在作用域链中，外部函数的活动对象始终处于第二位，外部函数的外部函数的活动对象处于第三位，……直至作为作用域链终点的全局执行环境</li>
+</ul>
+</li>
+<li><p>作用域链使得匿名函数能使用外部函数的活动对象，即使外部函数被销毁，其活动对象也不会被销毁，因为匿名函数的作用域链仍然在引用这个活动对象。</p>
+</li>
+<li><p>闭包与变量</p>
+<ul>
+<li>作用域链引出了一个值得注意的副作用：它使得闭包只能取得外部函数中任何变量的最后一次改变值，中间的变化值无法记录下来</li>
+<li><p>如： 若我们需要一个函数数组，在数组位置 i 的函数返回 i</p>
+<pre><code class="js">  function createFuntions(){
+      var result = new Array();
+
+      for (var i=0; i &lt; 10; i++) {
+          result[i] = function(){
+              return i;
+          };
+      }
+
+      return result;
+  }
+</code></pre>
+<blockquote>
+<p>以上代码实际上，每个函数都返回 10. 因为闭包只记得外部函数变量的最后一次改变值</p>
+</blockquote>
+</li>
+<li><p>如何实现？</p>
+<pre><code class="js">  function createFuntions(){
+      var result = new Array();
+
+      for (var i=0; i &lt; 10; i++) {
+          result[i] = function(num) {
+              return function(){
+                  return num;
+              };
+          }(i);   // 直接调用函数
+      }
+
+      return result;
+  }
+</code></pre>
+<blockquote>
+<p>以上代码用 num 阻隔了外部函数的变量 i，使得 i 按值传递进 <code>function(num)</code> 中，<code>function(num)</code> 内的闭包不需要引用 <code>createFuncitons()</code> 的变量 i，问题也就解决了</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+</section><nav id="post-nav"><span class="prev"><a href="/2019/04/30/变量/"><span class="arrow">←</span>Newer Posts</a></span><span class="next"><a href="/2019/04/30/instanceof函数/">Older Posts<span class="arrow">→</span></a></span></nav></article></section><footer id="footer"><div id="social"><a class="symbol" href="https://github.com/fuzhouxxdong"><i class="fa fa-github"></i></a></div><p class="small">© Copyright 2018 &nbsp;<i class="fa fa-heart" aria-hidden="true">&nbsp;Dxx</i></p><p class="small">Powered by &nbsp;<a href="https://hexo.io/">Hexo &nbsp;</a>Theme By &nbsp;<a href="https://github.com/fuzhouxxdong/hexo-theme-dxx">Dxx</a></p></footer><script>hljs.initHighlightingOnLoad();</script></body></html>

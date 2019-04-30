@@ -1,0 +1,39 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta name="generator" content="Hexo 3.8.0"><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><meta name="viewport" content="width=device-width, initial-scale=1"><title>JS 继承--原型链</title><link rel="shortcut icon" href="/images/avatar.png"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css"><script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script></head><body><nav class="main-nav"><a href="/">Home</a><a href="/archives">Archives</a></nav><div class="profile"><section id="wrapper"><header id="header"><a href="/about"><img class="2x" id="avatar" src="/images/avatar.png"></a><h1>Gulog</h1><h2></h2></header></section></div><section class="post" id="wrapper"><article><header><h1>JS 继承--原型链</h1><h2 class="headline">Apr 30, 2019 5:06·366 words
+·1 minutes read<span class="tags"></span></h2></header><section id="post-body"><ul>
+<li><p>ECMAScript 只支持实现继承，而且其实现继承主要依靠原型链来实现</p>
+</li>
+<li><p>什么是原型链？</p>
+<ul>
+<li>基本思想是利用原型让一个引用类型继承另一个引用类型的属性和方法</li>
+</ul>
+</li>
+<li><p>构造函数、原型和实例的关系：</p>
+<ul>
+<li>每个构造函数都有一个原型对象</li>
+<li>原型对象都包含一个指向构造函数的指针</li>
+<li>实例都包含一个指向原型对象的指针</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>假如我们让原型对象等于另一个类型的实例，此时的原型对象将包含一个指向另一个原型的指针；假如另一个原型对象又是另一个类型的实例，那么上述关系依然成立，如此层层递进，就构成了实例与原型的链条，这就是所谓的 <code>原型链</code></p>
+</blockquote>
+<ul>
+<li><p>例子：</p>
+<ul>
+<li>SuperType 是父类</li>
+<li>SubType 是子类</li>
+<li>链接方法： <pre><code class="js">  SubType.prototype = new SuperType();
+</code></pre>
+</li>
+<li>instance 是子类的实例</li>
+<li>于是 instance 的构造函数（instance.constructor）现在指向的是 SuperType ，因为这相当于重写了 SubType 的原型。因此，当调用 instance.constructor 时，会沿着原型链向上寻找，当找到 SubType 的原型指向的 SuperType 的原型时，发现 SuperType 的原型的 constructor 属性指向的是 SuperType 构造函数</li>
+</ul>
+</li>
+<li><p><i style="color: red">!注意:</i></p>
+<ul>
+<li>在通过原型链实现继承是，不能使用对象字面量创建原型方法。因为这样做就会重写原型链</li>
+</ul>
+</li>
+</ul>
+</section><nav id="post-nav"><span class="prev"><a href="/2019/04/30/类数组对象/"><span class="arrow">←</span>Newer Posts</a></span><span class="next"><a href="/2019/04/30/继承--借用构造函数/">Older Posts<span class="arrow">→</span></a></span></nav></article></section><footer id="footer"><div id="social"><a class="symbol" href="https://github.com/fuzhouxxdong"><i class="fa fa-github"></i></a></div><p class="small">© Copyright 2018 &nbsp;<i class="fa fa-heart" aria-hidden="true">&nbsp;Dxx</i></p><p class="small">Powered by &nbsp;<a href="https://hexo.io/">Hexo &nbsp;</a>Theme By &nbsp;<a href="https://github.com/fuzhouxxdong/hexo-theme-dxx">Dxx</a></p></footer><script>hljs.initHighlightingOnLoad();</script></body></html>

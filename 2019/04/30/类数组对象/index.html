@@ -1,0 +1,34 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta name="generator" content="Hexo 3.8.0"><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><meta name="viewport" content="width=device-width, initial-scale=1"><title>类数组对象</title><link rel="shortcut icon" href="/images/avatar.png"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css"><script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script></head><body><nav class="main-nav"><a href="/">Home</a><a href="/archives">Archives</a></nav><div class="profile"><section id="wrapper"><header id="header"><a href="/about"><img class="2x" id="avatar" src="/images/avatar.png"></a><h1>Gulog</h1><h2></h2></header></section></div><section class="post" id="wrapper"><article><header><h1>类数组对象</h1><h2 class="headline">Apr 30, 2019 5:06·189 words
+·1 minutes read<span class="tags"></span></h2></header><section id="post-body"><ul>
+<li>只包含使用从零开始，且自然递增的整数做键名，并且定义了length表示元素个数的对象，我们就认为他是类数组对象</li>
+</ul>
+<ul>
+<li><p>类数组对象不仅是效果上跟数组相似，并且在某些操作上也相同：</p>
+<pre><code class="js">  //定义数组和类数组对象
+  var arr = [1,2,3];
+  var obj = {0: 1, 1: 2, 2: 3, length: 3};
+  //元素读写操作
+  console.log(arr[0], obj[0])//1, 1
+  console.log(arr[&#39;length&#39;], obj[&#39;length&#39;])//3, 3
+  arr[0] = 9;
+  obj[0] = 9;
+
+  //遍历
+  for(var i = 0, len = arr.length; i &lt; len; i++) {
+      arr[i]....
+  }
+  for(var i = 0, len = obj.length; i &lt; len; i++) {
+      obj[i]....
+  }
+</code></pre>
+</li>
+<li><p>数组可以使用 forEach, 类数组对象也可以吗？</p>
+<ul>
+<li><p>不可以</p>
+</li>
+<li><p>因为 forEach() 方法 属于 <code>Array​.prototype​.for​Each()</code></p>
+</li>
+</ul>
+</li>
+</ul>
+</section><nav id="post-nav"><span class="prev"><a href="/2019/04/30/面向对象/"><span class="arrow">←</span>Newer Posts</a></span><span class="next"><a href="/2019/04/30/继承--原型链/">Older Posts<span class="arrow">→</span></a></span></nav></article></section><footer id="footer"><div id="social"><a class="symbol" href="https://github.com/fuzhouxxdong"><i class="fa fa-github"></i></a></div><p class="small">© Copyright 2018 &nbsp;<i class="fa fa-heart" aria-hidden="true">&nbsp;Dxx</i></p><p class="small">Powered by &nbsp;<a href="https://hexo.io/">Hexo &nbsp;</a>Theme By &nbsp;<a href="https://github.com/fuzhouxxdong/hexo-theme-dxx">Dxx</a></p></footer><script>hljs.initHighlightingOnLoad();</script></body></html>

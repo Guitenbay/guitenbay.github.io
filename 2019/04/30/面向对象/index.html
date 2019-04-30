@@ -1,0 +1,51 @@
+<!DOCTYPE html><html lang="zh-Hans"><head><meta name="generator" content="Hexo 3.8.0"><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><meta name="viewport" content="width=device-width, initial-scale=1"><title>JS 面向对象</title><link rel="shortcut icon" href="/images/avatar.png"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="stylesheet" href="//cdn.bootcss.com/highlight.js/9.2.0/styles/github.min.css"><script src="//cdn.bootcss.com/highlight.js/9.2.0/highlight.min.js"></script></head><body><nav class="main-nav"><a href="/">Home</a><a href="/archives">Archives</a></nav><div class="profile"><section id="wrapper"><header id="header"><a href="/about"><img class="2x" id="avatar" src="/images/avatar.png"></a><h1>Gulog</h1><h2></h2></header></section></div><section class="post" id="wrapper"><article><header><h1>JS 面向对象</h1><h2 class="headline">Apr 30, 2019 5:06·575 words
+·1 minutes read<span class="tags"></span></h2></header><section id="post-body"><ul>
+<li><p>构造函数</p>
+<ul>
+<li><p>构造函数与其他函数的唯一区别</p>
+<ul>
+<li>在于调用他们的方式不同</li>
+</ul>
+</li>
+<li><p>！任何函数，只要通过 new 操作符来调用，那它就可以作为构造函数</p>
+</li>
+</ul>
+</li>
+<li><p>原型（prototype）</p>
+<ul>
+<li><p>我们创建的每个函数都有一个 prototype 属性，这个属性是一个指针，指向一个对象，此对象称为原型对象</p>
+</li>
+<li><p>使用原型对象的好处是可以让所有对象实例共享他所包含的属性和方法。不必在构造函数中定义对象实例的信息</p>
+</li>
+<li><p>虽然可以通过对象实例访问保存在原型中的值，但却不能通过对象实例重写原型中的值</p>
+</li>
+<li><p>然而我们可以在对象实例中添加一个新的属性，若该属性与实例原型中的属性同名，则实例中的新属性覆盖原型中的那个属性： 从外部来看，好像是我们为实例的属性重新赋值了</p>
+</li>
+<li><p>使用 hasOwnProperty() 方法可以检测一个属性是存在于实例中，还是存在于原型中</p>
+</li>
+</ul>
+</li>
+<li><p>使用对象字面量重写整个原型对象会发生什么？</p>
+<pre><code class="js">  Person.prototype = {
+      name: &quot;Nicholas&quot;,
+      age: 29
+  }
+</code></pre>
+<ul>
+<li>prototype 自动获得的 constructor 属性指向新对象的 constructor 属性（默认指向 Object 构造函数）</li>
+<li>在重写 prototype 之前创建的实例的 prototype 会指向旧的 Person 类的 prototype，即重写原型对象会切断新原型与任何之前已经存在的对象实例之间的联系</li>
+</ul>
+</li>
+<li><p>使用原型模式创建对象的问题</p>
+<ul>
+<li>所有实例在默认情况下都将取得相同的属性值，对于函数而言，这是应该的，对于普通属性而言，也可以通过覆盖来保证自己有特殊的属性值</li>
+<li>但是对于包含引用类型值的属性来说，就存在问题了。<ul>
+<li>如在 Person.prototype 对象中有一个 Array 类型的属性，在没有修改 Array 的引用的情况下，就构不成覆盖所要求的条件，所以对单个实例修改 Array 的内容会同步显示在其他实例中</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>比较好的创建对象的方法是组合使用构造函数和原型</p>
+</li>
+</ul>
+</section><nav id="post-nav"><span class="prev"><a href="/2019/04/30/数据类型/"><span class="arrow">←</span>Newer Posts</a></span><span class="next"><a href="/2019/04/30/类数组对象/">Older Posts<span class="arrow">→</span></a></span></nav></article></section><footer id="footer"><div id="social"><a class="symbol" href="https://github.com/fuzhouxxdong"><i class="fa fa-github"></i></a></div><p class="small">© Copyright 2018 &nbsp;<i class="fa fa-heart" aria-hidden="true">&nbsp;Dxx</i></p><p class="small">Powered by &nbsp;<a href="https://hexo.io/">Hexo &nbsp;</a>Theme By &nbsp;<a href="https://github.com/fuzhouxxdong/hexo-theme-dxx">Dxx</a></p></footer><script>hljs.initHighlightingOnLoad();</script></body></html>
